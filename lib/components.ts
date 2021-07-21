@@ -1,4 +1,4 @@
-import { WebElementPromise } from 'selenium-webdriver';
+import { promise, WebElementPromise } from 'selenium-webdriver';
 
 export class WebComponent {
   constructor(protected element: WebElementPromise, public selector: string) { }
@@ -42,12 +42,38 @@ export class Button extends WebComponent {
   }
 }
 
-export class TextInput extends WebComponent {
+export class LinkButton extends WebComponent {
   constructor(element: WebElementPromise, selector: string) {
     super(element, selector);
   }
 
+  public async isClickable() {
+    try {
+      return await this.element.getAttribute('clickable') === 'clickable';
+    } catch (ex) {
+      return false;
+    }
+  }
+}
+
+export class TextInput extends WebComponent {
+    constructor(element: WebElementPromise, selector: string) {
+    super(element, selector);
+  }
+
   public type(text: string) {
+    console.log('look for TextInput mex : '+ text);
     return this.element.sendKeys(text);
+  }
+}
+
+export class EditText extends WebComponent {
+    constructor(element: WebElementPromise, selector: string) {
+    super(element, selector);
+  }
+
+  public sendText(text: string) {
+    console.log('look for EditText mex : ' + text);
+    this.element.sendKeys(text);
   }
 }

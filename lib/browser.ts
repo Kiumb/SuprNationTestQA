@@ -8,20 +8,33 @@ export class Browser {
     this.driver = new Builder().forBrowser(browserName).build();
   }
 
-  public async navigate(url: string): Promise<void> {
-    await this.driver.navigate().to(url);
-  }
-
+  
   public findElement(selector: string): WebElementPromise {
     return this.driver.findElement(By.css(selector));
   }
 
+  public async navigateBrowser(url: string): Promise<void> {
+    console.log('avvio test navigateBrowser toUrl : ' + url );
+    await this.driver.navigate().to(url);
+    console.log('end navigateBrowser' );
+  }
+
+  public scrollToElement(webEle: WebElement){
+    console.log('scrollToElement--');
+    this.driver.executeScript('arguments[0].scrollIntoView(false);', webEle);
+  }
+
+  public findElementByXPath(selector: string): WebElementPromise {
+    return this.driver.findElement(By.xpath(selector));
+  }
+
+
   public async clearCookies(url?: string): Promise<void> {
     if (url) {
       const currentUrl = await this.driver.getCurrentUrl();
-      await this.navigate(url);
+      await this.navigateBrowser(url);
       await this.driver.manage().deleteAllCookies();
-      await this.navigate(currentUrl);
+      await this.navigateBrowser(currentUrl);
     } else {
       await this.driver.manage().deleteAllCookies();
     }
