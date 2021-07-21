@@ -17,7 +17,7 @@ describe("GET /users", function () {
 
 
 describe("POST /register", function () {
-  it("calculates the distance between two airports", async function () {
+  it("correct call service register", async function () {
     const response = await request
       .post("/register")
       .send({ email: "eve.holt@reqres.in", password: "pistol" });
@@ -30,5 +30,17 @@ describe("POST /register", function () {
    // expect(attributes.kilometers).to.eql(8692.066508240026);
    // expect(attributes.miles).to.eql(5397.239853492001);
    // expect(attributes.nautical_miles).to.eql(4690.070954910584);
+  });
+});
+
+
+describe("POST /register", function () {
+  it("correct call service register", async function () {
+    const response = await request
+      .post("/register")
+      .send({ email: "eve.holt@reqres.in"});
+
+    console.log("response : " +response.body)
+    expect(response.status).to.eql(400);
   });
 });

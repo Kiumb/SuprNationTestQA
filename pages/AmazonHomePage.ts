@@ -13,6 +13,13 @@ export class AmazonHomePage extends Page {
   @findByxpath('//input[@id=\'nav-search-submit-button\']')
   public AmazonSearchBtn: Button;
 
+  @findByxpath('//img[@alt=\'Essential TypeScript 4: From Beginner to Pro\']')
+  public AmazonSelectItme: Button;
+
+  @findByxpath('//input[@id=\'add-to-cart-button\']')
+  public AmazonAddToCart: Button;
+  
+
   @findByxpath('//input[@id=\'twotabsearchtextbox\']')
   public AmazonSearchBox: TextInput;
 
@@ -57,24 +64,31 @@ export class AmazonHomePage extends Page {
 
     console.log('testAmazonSuprNation 2 check if all elements are "prime early deals"');
 
-    //await new Promise( (f) => setTimeout(f, 3000));
+    await new Promise( (f) => setTimeout(f, 3000));
     await this.browser.wait(pageHasLoaded(AmazonHomePage));
   }
 
   // TEST 2 SEARCH FOR TYPESCRIPT
   public async test2AmazonSuprNation(text: string) {
-    console.log('testAmazonSuprNation 0 click Amazon Home');
+    console.log('testAmazonSuprNation 1 - click Amazon Home');
     await this.clickSkipLovation(() => this.AmazonSkipLocation);
     //await this.AmazonSkipLocation.click();
 
-    console.log('enter typescript on searchbox');
+    console.log('testAmazonSuprNation 2 - enter typescript on searchbox');
     await this.searchForTypescript('Typescript');
 
     //await new Promise((f) => setTimeout(f, 1000));
-    console.log('testAmazonSuprNation 3 Search Btn');
+    console.log('testAmazonSuprNation 3 - Search Btn');
     await this.AmazonSearchBtn.click();
 
-    console.log('testAmazonSuprNation 4 select the third result');
+    console.log('testAmazonSuprNation 4 - select the third result');
+    await this.AmazonSelectItme.click();
+
+    console.log('testAmazonSuprNation 5 - add item to cart');
+    await this.AmazonAddToCart.click()
+
+    //img[@alt='Essential TypeScript 4: From Beginner to Pro']
+    //body/div[@id='a-page']/div[@id='search']/div[@class='s-desktop-width-max s-opposite-dir']/div[@class='s-desktop-content s-opposite-dir sg-row']/div[@class='s-matching-dir sg-col-16-of-20 sg-col sg-col-8-of-12 sg-col-12-of-16']/div[@class='sg-col-inner']/span[@class='rush-component s-latency-cf-section']/div[@class='s-main-slot s-result-list s-search-results sg-row']/div[2]/div[1]/span[1]/div[1]/div[1]/div[2]/div[1]/div[1]
 
     //await new Promise( (f) => setTimeout(f, 3000));
     await this.browser.wait(pageHasLoaded(AmazonHomePage));
